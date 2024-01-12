@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mechamod Admin Panel</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" type="text/css" href="keycapList.css" />
+</head>
+
+<body class="font-roboto flex flex-col items-center justify-center h-screen">
+
+    <h1 class="text-2xl font-bold mb-4">Mechamod Admin Panel</h1>
+
+    <!-- Display Keycaps -->
+    <div>
+        <!-- <h2 class="text-xl font-bold mb-2">All Keycaps</h2> -->
+        <ul id="keycapList" class="list-disc pl-6"></ul>
+    </div>
+
+    <!-- Button to toggle the Add Keycap Form -->
+    <button id="toggleAddKeycapForm"
+        class="bg-blue-500 text-white px-4 py-2 rounded-md focus:outline-none hover:bg-blue-600">
+        Add Keycap
+    </button>
+
+    <!-- Add Keycap Form (Initially hidden) -->
+    <div id="addKeycapFormContainer" class="w-96 mx-auto hidden">
+        <h2 class="text-xl font-bold mb-4">Add Keycap</h2>
+        <form id="addKeycapForm" class="space-y-4">
+            <label for="name" class="block mb-1">Name:</label>
+            <input type="text" id="name" name="name" required
+                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+
+            <label for="price" class="block mb-1">Price:</label>
+            <input type="number" id="price" name="price" required
+                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+
+            <label for="description" class="block mb-1">Description:</label>
+            <textarea id="description" name="description" required
+                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"></textarea>
+
+            <button id="addKeycapButton" type="submit"
+                class="bg-green-500 text-white px-4 py-2 rounded-md focus:outline-none hover:bg-green-600">
+                Add Keycap
+            </button>
+        </form>
+    </div>
+
+    <!-- Edit Keycap Form (Initially hidden) -->
+    <div id="editKeycapFormContainer" class="w-96 mx-auto hidden">
+        <h2 class="text-xl font-bold mb-4">Edit Keycap</h2>
+        <form id="editKeycapForm" class="space-y-4">
+            <label for="editKeyId" class="block mb-1">ID:</label>
+            <input type="text" id="editKeyId" name="editKeyId" required
+                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+
+            <label for="editName" class="block mb-1">Name:</label>
+            <input type="text" id="editName" name="editName" required
+                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+
+            <label for="editPrice" class="block mb-1">Price:</label>
+            <input type="number" id="editPrice" name="editPrice" required
+                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+
+            <label for="editDescription" class="block mb-1">Description:</label>
+            <textarea id="editDescription" name="editDescription" required
+                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"></textarea>
+
+            <button type="submit"
+                class="bg-blue-500 text-white px-4 py-2 rounded-md focus:outline-none hover:bg-blue-600">
+                Save Changes
+            </button>
+        </form>
+    </div>
+
+    <script type="text/javascript" src="fetchKeycaps.js"></script>
+    <script type="text/javascript" src="editKeycap.js"></script>
+    <script type="text/javascript" src="addKeycap.js"></script>
+    <script type="text/javascript" src="deleteKeycap.js"></script>
+
+    <script>
+        // Fetch keycaps when the page loads
+        document.addEventListener('DOMContentLoaded', fetchKeycaps);
+    </script>
+
+
+</body>
+
+</html>

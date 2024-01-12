@@ -1,0 +1,38 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+#keycapList {
+    list-style: none;
+    padding-left: 0;
+}
+
+#keycapList li {
+    padding-top: 20px;
+}
+
+#deleteKeycapButton {
+    background-color: #e32323; /* Green background color */
+    color: rgb(0, 0, 0); /* White text color */
+    padding: 3px 10px; /* Add padding */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Add border radius for rounded corners */
+    cursor: pointer;
+  }
+
+  #deleteKeycapButton:hover {
+    background-color: #981919;
+  }
+
+  #editKeycapButton {
+    background-color: #cde323; /* Green background color */
+    color: rgb(0, 0, 0); /* White text color */
+    padding: 3px 10px; /* Add padding */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Add border radius for rounded corners */
+    cursor: pointer;
+  }
+
+  #editKeycapButton:hover {
+    background-color: #97a81c;
+  }
