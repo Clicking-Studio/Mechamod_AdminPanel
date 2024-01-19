@@ -1,5 +1,5 @@
 // Define the base URL
-const baseURL = 'https://mechamod-backend-v1.fly.dev'; // Update with your deployed URL
+const baseURL = 'https://mechamod-backend.vercel.app'; // Update with your deployed URL
 
 // Fetch and display keycaps
 async function fetchKeycaps() {
