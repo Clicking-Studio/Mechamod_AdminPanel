@@ -12,6 +12,7 @@ async function editKeycap(id) {
     document.getElementById('editName').value = keycapToEdit.name;
     document.getElementById('editPrice').value = keycapToEdit.price;
     document.getElementById('editDescription').value = keycapToEdit.description;
+    document.getElementById('editOrderPosition').value = keycapToEdit.order_position;
 }
 
 
@@ -23,6 +24,7 @@ document.getElementById('editKeycapForm').addEventListener('submit', async funct
     const name = document.getElementById('editName').value;
     const price = document.getElementById('editPrice').value;
     const description = document.getElementById('editDescription').value;
+    const order_position = document.getElementById('editOrderPosition').value;
 
     try {
         await fetch(`${baseURL}/keycaps/${id}`, {
@@ -30,7 +32,7 @@ document.getElementById('editKeycapForm').addEventListener('submit', async funct
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ name, price, description }),
+            body: JSON.stringify({ name, price, description, order_position }),
         });
 
         // Hide the edit form and refresh the keycap list

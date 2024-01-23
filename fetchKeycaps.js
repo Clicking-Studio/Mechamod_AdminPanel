@@ -12,6 +12,7 @@ async function fetchKeycaps() {
             <li>
                 <div class="keycap-container">
                     <strong>ID:</strong> ${keycap.keycap_id}<br />
+                    <strong>Position:</strong> ${keycap.order_position}<br/>
                     <strong>Keycap Name:</strong> ${keycap.name}<br/>
                     <strong>Price:</strong> ₹ ${keycap.price}<br/>
                     <strong>Description:</strong> ${keycap.description}<br/>
