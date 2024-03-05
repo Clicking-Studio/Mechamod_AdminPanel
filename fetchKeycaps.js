@@ -1,5 +1,6 @@
 // Define the base URL
 const baseURL = 'https://mechamod-backend.vercel.app'; // Update with your deployed URL
+// const baseURL = 'http://localhost:3000'
 
 // Fetch and display keycaps
 async function fetchKeycaps() {
@@ -19,6 +20,7 @@ async function fetchKeycaps() {
                 <strong>Keycap Name:</strong> ${keycap.name}<br/>
                 <strong>Price:</strong> ₹ ${keycap.price}<br/>
                 <strong>Description:</strong> ${keycap.description}<br/>
+                <strong>Image:</strong> <img src="${keycap.image_path}" alt="Keycap Image" style="max-width: 200px;"><br/> <!-- Adjust image display -->
                 <div class="flex justify-between mt-4">
                     <button onclick="editKeycap(${keycap.keycap_id})" class="bg-blue-500 text-white px-4 py-2 rounded-md focus:outline-none hover:bg-blue-600">Edit</button>
                     <button onclick="deleteKeycap(${keycap.keycap_id})" class="bg-red-500 text-white px-4 py-2 rounded-md focus:outline-none hover:bg-red-600">Delete</button>
@@ -30,6 +32,7 @@ async function fetchKeycaps() {
         console.error('Error fetching keycaps:', error);
     }
 }
+
 
 
 // Fetch a keycap by ID

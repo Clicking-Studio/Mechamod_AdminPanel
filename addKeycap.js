@@ -10,14 +10,18 @@ document.getElementById('addKeycapForm').addEventListener('submit', async functi
     const name = document.getElementById('name').value;
     const price = document.getElementById('price').value;
     const description = document.getElementById('description').value;
+    const files = document.getElementById('image').files[0]; // Get the uploaded image file
 
     try {
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('price', price);
+        formData.append('description', description);
+        formData.append('files', files); // Append the image file to the form data using the correct variable name
+
         const response = await fetch(`${baseURL}/keycaps`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name, price, description }),
+            body: formData, // Use form data instead of JSON.stringify
         });
 
         // Clear the form and refresh the list
