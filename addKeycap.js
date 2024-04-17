@@ -1,36 +1,42 @@
-// Toggle visibility of the Add Keycap Form
-document.getElementById('toggleAddKeycapForm').addEventListener('click', function () {
-    const addKeycapFormContainer = document.getElementById('addKeycapFormContainer');
-    addKeycapFormContainer.classList.toggle('hidden');
-});
+// Open Add Keycap Modal
+function openAddKeycapModal() {
+    const addKeycapModal = document.getElementById('addKeycapModal');
+    addKeycapModal.style.display = 'flex'; // Show the modal
+}
 
-// After submitting the form, hide the form again
-document.getElementById('addKeycapForm').addEventListener('submit', async function (event) {
+// Close Add Keycap Modal
+function closeAddKeycapModal() {
+    const addKeycapModal = document.getElementById('addKeycapModal');
+    addKeycapModal.style.display = 'none'; // Hide the modal
+}
+
+// Handle Add Keycap Form Submission
+document.getElementById('addKeycapForm').addEventListener('submit', async function(event) {
     event.preventDefault();
+
     const name = document.getElementById('name').value;
     const price = document.getElementById('price').value;
     const description = document.getElementById('description').value;
-    const files = document.getElementById('image').files[0]; // Get the uploaded image file
+    const files = document.getElementById('image').files[0];
+
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('price', price);
+    formData.append('description', description);
+    formData.append('files', files);
 
     try {
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('price', price);
-        formData.append('description', description);
-        formData.append('files', files); // Append the image file to the form data using the correct variable name
-
         const response = await fetch(`${baseURL}/keycaps`, {
             method: 'POST',
-            body: formData, // Use form data instead of JSON.stringify
+            body: formData,
         });
 
-        // Clear the form and refresh the list
+        // Clear the form and close the modal
         document.getElementById('addKeycapForm').reset();
-        fetchKeycaps();
+        closeAddKeycapModal();
+        fetchKeycapNames(); // Refresh keycap list
+        fetchLogs();
     } catch (error) {
         console.error('Error adding keycap:', error);
     }
-
-    // Hide the Add Keycap Form after submission
-    document.getElementById('addKeycapFormContainer').classList.add('hidden');
 });

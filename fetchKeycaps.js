@@ -1,48 +1,71 @@
-// Define the base URL
-const baseURL = 'https://mechamod-backend.vercel.app'; // Update with your deployed URL
-// const baseURL = 'http://localhost:3000'
+// Define the base URL for the keycaps API
+const baseURL = 'https://mechamod-backend.vercel.app'; // Replace with your API URL
 
-// Fetch and display keycaps
-async function fetchKeycaps() {
+async function fetchKeycapNames() {
     try {
         const response = await fetch(`${baseURL}/keycaps`);
         const keycaps = await response.json();
 
-        // Sort keycaps based on order_position
-        const sortedKeycaps = keycaps.sort((a, b) => a.order_position - b.order_position);
-
         const keycapListElement = document.getElementById('keycapList');
-        keycapListElement.innerHTML = sortedKeycaps.map(keycap => `
-        <li>
-            <div class="keycap-container bg-white p-4 rounded-md shadow-md">
-                <strong>ID:</strong> ${keycap.keycap_id}<br />
-                <strong>Position:</strong> ${keycap.order_position}<br/>
-                <strong>Keycap Name:</strong> ${keycap.name}<br/>
-                <strong>Price:</strong> ₹ ${keycap.price}<br/>
-                <strong>Description:</strong> ${keycap.description}<br/>
-                <strong>Image:</strong> <img src="${keycap.image_path}" alt="Keycap Image" style="max-width: 200px;"><br/> <!-- Adjust image display -->
-                <div class="flex justify-between mt-4">
-                    <button onclick="editKeycap(${keycap.keycap_id})" class="bg-blue-500 text-white px-4 py-2 rounded-md focus:outline-none hover:bg-blue-600">Edit</button>
-                    <button onclick="deleteKeycap(${keycap.keycap_id})" class="bg-red-500 text-white px-4 py-2 rounded-md focus:outline-none hover:bg-red-600">Delete</button>
-                </div>
-            </div>
-        </li>
-        `).join('');
+
+        // Clear any existing content
+        keycapListElement.innerHTML = '';
+
+        // Loop through keycaps and create elements for each keycap
+        keycaps.forEach(keycap => {
+            // Create a container for the keycap
+            const keycapContainer = document.createElement('div');
+            keycapContainer.classList.add('bg-white', 'p-2', 'rounded-md', 'shadow-md', 'flex', 'items-center');
+
+            // Create <img> element for keycap image
+            const keycapImageElement = document.createElement('img');
+            keycapImageElement.src = keycap.image_path; // Set the image source
+            keycapImageElement.alt = keycap.name; // Set alt text for accessibility
+            keycapImageElement.classList.add('w-12', 'h-12', 'object-cover', 'mr-3'); // Tailwind CSS classes for styling
+
+            // Create <p> element for keycap name with left border (vertical line)
+            const keycapNameElement = document.createElement('p');
+            keycapNameElement.textContent = keycap.name;
+            keycapNameElement.classList.add('flex-grow', 'pl-3', 'border-l', 'border-gray-400'); // Tailwind CSS classes for styling
+
+            // Create button container for edit and delete buttons
+            const buttonContainer = document.createElement('div');
+            buttonContainer.classList.add('ml-auto', 'space-x-2'); // Use ml-auto to push buttons to the right
+
+            // Create Edit button
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.classList.add('bg-blue-500', 'text-white', 'px-4', 'py-2', 'rounded-md', 'focus:outline-none', 'hover:bg-blue-600');
+            editButton.addEventListener('click', () => {
+                openEditModal(keycap.keycap_id); // Pass keycap data to openEditModal
+            });
+
+            // Create Delete button
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.classList.add('bg-red-500', 'text-white', 'px-4', 'py-2', 'rounded-md', 'focus:outline-none', 'hover:bg-red-600');
+            deleteButton.addEventListener('click', () => {
+                deleteKeycap(keycap.keycap_id); // Call deleteKeycap function with keycap ID
+            });
+
+            // Append elements to the keycap container
+            keycapContainer.appendChild(keycapImageElement); // Add image element
+            keycapContainer.appendChild(keycapNameElement); // Add name element with vertical line
+            keycapContainer.appendChild(buttonContainer); // Add button container to keycap container
+
+            // Append buttons to the button container
+            buttonContainer.appendChild(editButton);
+            buttonContainer.appendChild(deleteButton);
+
+            // Append the keycap container to the keycapListElement
+            keycapListElement.appendChild(keycapContainer);
+        });
     } catch (error) {
         console.error('Error fetching keycaps:', error);
     }
 }
 
-
-
-// Fetch a keycap by ID
-async function getKeycapById(id) {
-    try {
-        const response = await fetch(`${baseURL}/keycaps/${id}`);
-        const keycap = await response.json();
-        return keycap;
-    } catch (error) {
-        console.error(`Error fetching keycap with ID ${id}:`, error);
-        return null;
-    }
-}
+// Fetch keycap names when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    fetchKeycapNames();
+});
