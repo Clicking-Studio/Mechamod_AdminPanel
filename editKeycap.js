@@ -1,6 +1,3 @@
-// Define the base URL for the keycaps API
-// const baseURL = 'https://mechamod-backend.vercel.app'; // Replace with your API URL
-
 function openEditModal(id) {
     // Fetch keycap data and populate the edit form
     fetch(`${baseURL}/keycaps/${id}`)
@@ -9,30 +6,46 @@ function openEditModal(id) {
             // Populate the edit form with keycap data
             const modalContent = `
                 <h2 class="text-lg font-semibold mb-2">Edit Keycap</h2>
-                <form id="editKeycapForm" class="space-y-2">
+                <form id="editKeycapForm" class="space-y-2 grid grid-cols-2 gap-4">
                     <input type="hidden" id="editKeycapId" value="${keycap.keycap_id}">
-                    <label for="editName" class="block font-small text-gray-700">Name:</label>
-                    <input type="text" id="editName" name="editName" value="${keycap.name}" required
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
-                    <label for="editPrice" class="block font-small text-gray-700">Price:</label>
-                    <input type="number" id="editPrice" name="editPrice" value="${keycap.price}" required
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
-                    <label for="editDescription" class="block font-small text-gray-700">Description:</label>
-                    <textarea id="editDescription" name="editDescription" rows="4" required
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">${keycap.description}</textarea>
-                    <label for="editOrderPosition" class="block font-small text-gray-700">Order Position:</label>
-                    <input type="number" id="editOrderPosition" name="editOrderPosition" value="${keycap.order_position}" required
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
-                    <label for="editImage" class="block font-small text-gray-700">Image:</label>
-                    <input type="file" id="editImage" name="editImage"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
-                    
+                    <div class="col-span-1">
+                        <label for="editName" class="block font-small text-gray-700">Name:</label>
+                        <input type="text" id="editName" name="editName" value="${keycap.name}" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+                        <label for="editPrice" class="block font-small text-gray-700">Price:</label>
+                        <input type="number" id="editPrice" name="editPrice" value="${keycap.price}" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+                        <label for="editOrderPosition" class="block font-small text-gray-700">Order Position:</label>
+                        <input type="number" id="editOrderPosition" name="editOrderPosition" value="${keycap.order_position}" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+                        <label for="editImage" class="block font-small text-gray-700">Image:</label>
+                        <input type="file" id="editImage" name="editImage"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div class="col-span-1">
+                        <label for="editDescription" class="block font-small text-gray-700">Description:</label>
+                        <textarea id="editDescription" name="editDescription" rows="4" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">${keycap.description}</textarea>
+                        <label for="editBullet1" class="block font-small text-gray-700">Bullet 1:</label>
+                        <input type="text" id="editBullet1" name="editBullet1" value="${keycap.bullet1 || ''}"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+                        <label for="editBullet2" class="block font-small text-gray-700">Bullet 2:</label>
+                        <input type="text" id="editBullet2" name="editBullet2" value="${keycap.bullet2 || ''}"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+                        <label for="editBullet3" class="block font-small text-gray-700">Bullet 3:</label>
+                        <input type="text" id="editBullet3" name="editBullet3" value="${keycap.bullet3 || ''}"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+                        <label for="editBullet4" class="block font-small text-gray-700">Bullet 4:</label>
+                        <input type="text" id="editBullet4" name="editBullet4" value="${keycap.bullet4 || ''}"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+                    </div>
+
                     <!-- Display existing image if available with smaller size -->
                     <img id="existingImagePreview" src="${keycap.image_path}" class="mt-2 border border-gray-300 rounded-md ${keycap.image_path ? '' : 'hidden'} w-24 h-24 object-cover">
                     <!-- Adjusted width (w-24) and height (h-24) for the image -->
 
                     <!-- Buttons for saving changes and canceling -->
-                    <div class="flex justify-end space-x-4">
+                    <div class="col-span-2 flex justify-end space-x-4">
                         <button type="submit"
                             class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none">Save
                             Changes</button>
@@ -49,12 +62,16 @@ function openEditModal(id) {
             document.getElementById('editKeycapForm').addEventListener('submit', async function(event) {
                 event.preventDefault();
 
-                // Get form values
+                // Get form values including bullet points
                 const id = document.getElementById('editKeycapId').value;
                 const name = document.getElementById('editName').value;
                 const price = document.getElementById('editPrice').value;
                 const description = document.getElementById('editDescription').value;
                 const order_position = document.getElementById('editOrderPosition').value;
+                const bullet1 = document.getElementById('editBullet1').value;
+                const bullet2 = document.getElementById('editBullet2').value;
+                const bullet3 = document.getElementById('editBullet3').value;
+                const bullet4 = document.getElementById('editBullet4').value;
                 const files = document.getElementById('editImage').files[0]; // Get the selected image file
 
                 // Create a FormData object to send form data
@@ -63,6 +80,10 @@ function openEditModal(id) {
                 formData.append('price', price);
                 formData.append('description', description);
                 formData.append('order_position', order_position);
+                formData.append('bullet1', bullet1);
+                formData.append('bullet2', bullet2);
+                formData.append('bullet3', bullet3);
+                formData.append('bullet4', bullet4);
 
                 // Append the image file to FormData only if a new image is selected
                 if (files) {

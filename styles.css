@@ -52,3 +52,13 @@
             border-bottom: 1px solid #ddd;
             /* Add a bottom border to separate log entries */
         }
+
+        /* Adjusted styles for existing image preview */
+        #existingImagePreview {
+            max-width: 100%;
+            /* Ensure image fits within modal width */
+            height: auto;
+            /* Maintain aspect ratio */
+            margin-top: -140px;
+            /* Adjust this value to raise or lower the image */
+        }
