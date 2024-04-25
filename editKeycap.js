@@ -87,7 +87,7 @@ function openEditModal(id) {
 
                 // Append the image file to FormData only if a new image is selected
                 if (files) {
-                    formData.append('files', files);
+                    formData.append('image', files);
                 }
 
                 try {

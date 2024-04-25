@@ -31,8 +31,8 @@ document.getElementById('addKeycapForm').addEventListener('submit', async functi
     formData.append('bullet2', bullet2);
     formData.append('bullet3', bullet3);
     formData.append('bullet4', bullet4);
-    formData.append('files', imageFile); // Append image file with key 'image'
-    formData.append('files', backgroundFile); // Append background file with key 'background'
+    formData.append('image', imageFile); // Append image file with key 'image'
+    formData.append('background', backgroundFile); // Append background file with key 'background'
 
     try {
         const response = await fetch(`${baseURL}/keycaps`, {
