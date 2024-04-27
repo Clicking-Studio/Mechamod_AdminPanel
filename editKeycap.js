@@ -21,6 +21,9 @@ function openEditModal(id) {
                         <label for="editImage" class="block font-small text-gray-700">Image:</label>
                         <input type="file" id="editImage" name="editImage"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+                        <label for="editBackground" class="block font-small text-gray-700">Background:</label>
+                        <input type="file" id="editBackground" name="editBackground"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
                     </div>
                     <div class="col-span-1">
                         <label for="editDescription" class="block font-small text-gray-700">Description:</label>
@@ -43,6 +46,10 @@ function openEditModal(id) {
                     <!-- Display existing image if available with smaller size -->
                     <img id="existingImagePreview" src="${keycap.image_path}" class="mt-2 border border-gray-300 rounded-md ${keycap.image_path ? '' : 'hidden'} w-24 h-24 object-cover">
                     <!-- Adjusted width (w-24) and height (h-24) for the image -->
+
+                    <!-- Display existing background if available with smaller size -->
+                    <img id="existingBackgroundPreview" src="${keycap.background_path}" class="mt-2 border border-gray-300 rounded-md ${keycap.background_path ? '' : 'hidden'} w-24 h-24 object-cover">
+                    <!-- Adjusted width (w-24) and height (h-24) for the background -->
 
                     <!-- Buttons for saving changes and canceling -->
                     <div class="col-span-2 flex justify-end space-x-4">
@@ -72,7 +79,8 @@ function openEditModal(id) {
                 const bullet2 = document.getElementById('editBullet2').value;
                 const bullet3 = document.getElementById('editBullet3').value;
                 const bullet4 = document.getElementById('editBullet4').value;
-                const files = document.getElementById('editImage').files[0]; // Get the selected image file
+                const imageFile = document.getElementById('editImage').files[0]; // Get the selected image file
+                const backgroundFile = document.getElementById('editBackground').files[0]; // Get the selected background image file
 
                 // Create a FormData object to send form data
                 const formData = new FormData();
@@ -86,8 +94,13 @@ function openEditModal(id) {
                 formData.append('bullet4', bullet4);
 
                 // Append the image file to FormData only if a new image is selected
-                if (files) {
-                    formData.append('image', files);
+                if (imageFile) {
+                    formData.append('image', imageFile);
+                }
+
+                // Append the background file to FormData only if a new image is selected
+                if (backgroundFile) {
+                    formData.append('background', backgroundFile);
                 }
 
                 try {
