@@ -57,6 +57,16 @@ function openEditModal(id) {
                         <img id="existingBackgroundPreview" src="${keycap.background_path}" class="mt-2 border border-gray-300 rounded-md ${keycap.background_path ? '' : 'hidden'} w-20 h-20 object-cover">
                         <!-- Adjusted width (w-10) and height (h-10) for the background -->
                     </div>
+
+                    <div class="">
+                    <label for="editSTL" class="block font-small text-gray-700">STL:</label>
+                    <input type="file" id="editSTL" name="editSTL"
+                        class="w-full px-2 py-2 border border-gray-300 text-sm rounded-md focus:outline-none focus:border-blue-500">
+                
+                    <!-- Display existing STL if available with smaller size -->
+                    <img id="existingSTLPreview" src="${keycap.stl_path}" class="mt-2 border border-gray-300 rounded-md ${keycap.stl_path ? '' : 'hidden'} w-20 h-20 object-cover">
+                    <!-- Adjusted width (w-10) and height (h-10) for the STL -->
+                </div>
                 </div>
 
             
@@ -86,6 +96,7 @@ function openEditModal(id) {
                 const bullet4 = document.getElementById('editBullet4').value;
                 const imageFile = document.getElementById('editImage').files[0]; // Get the selected image file
                 const backgroundFile = document.getElementById('editBackground').files[0]; // Get the selected background image file
+                const stlFile = document.getElementById('editSTL').files[0]; // Get the selected stl file
 
                 // Create a FormData object to send form data
                 const formData = new FormData();
@@ -106,6 +117,11 @@ function openEditModal(id) {
                 // Append the background file to FormData only if a new image is selected
                 if (backgroundFile) {
                     formData.append('background', backgroundFile);
+                }
+
+                // Append the stl file to FormData only if a new file is selected
+                if (stlFile) {
+                    formData.append('stl', stlFile);
                 }
 
                 try {

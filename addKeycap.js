@@ -22,6 +22,7 @@ document.getElementById('addKeycapForm').addEventListener('submit', async functi
     const bullet4 = document.getElementById('bullet4').value;
     const imageFile = document.getElementById('image').files[0]; // Get image file
     const backgroundFile = document.getElementById('background').files[0]; // Get background file
+    const stlFile = document.getElementById('stl').files[0]; // Get stl file
 
     const formData = new FormData();
     formData.append('name', name);
@@ -33,6 +34,7 @@ document.getElementById('addKeycapForm').addEventListener('submit', async functi
     formData.append('bullet4', bullet4);
     formData.append('image', imageFile); // Append image file with key 'image'
     formData.append('background', backgroundFile); // Append background file with key 'background'
+    formData.append('stl', stlFile); // Append stl file with key 'stl'
 
     try {
         const response = await fetch(`${baseURL}/keycaps`, {
