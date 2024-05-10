@@ -39,11 +39,6 @@ document.getElementById('addKeycapForm').addEventListener('submit', async functi
     try {
         const response = await fetch(`${baseURL}/keycaps`, {
             method: 'POST',
-            credentials: 'include', // Include cookies and authorization headers
-            headers: {
-                'Content-Type': 'application/json'
-                // Add any other required headers
-            },
             body: formData,
         });
 
