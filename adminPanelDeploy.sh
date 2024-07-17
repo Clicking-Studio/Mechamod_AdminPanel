@@ -2,6 +2,7 @@
 
 # Define your repository URL
 REPO_URL="https://github.com/Clicking-Studio/Mechamod_AdminPanel.git"
+
 # Path to your local repository
 LOCAL_REPO_PATH="/home/ec2-user/Mechamod_AdminPanel"
 
@@ -53,7 +54,7 @@ fetch_and_restart_pm2() {
     fi
 
     # Pull latest changes from the specified branch
-    git pull origin "$BRANCH_NAME" --no-rebase
+    git pull origin "$BRANCH_NAME"
 
     # Restart pm2 using the full path
     $PM2_PATH restart 3
