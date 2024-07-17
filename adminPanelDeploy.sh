@@ -54,7 +54,7 @@ fetch_and_restart_pm2() {
     fi
 
     # Pull latest changes from the specified branch
-    git pull origin "$BRANCH_NAME"
+    git pull origin "$BRANCH_NAME" --no-rebase
 
     # Restart pm2 using the full path
     $PM2_PATH restart 3
